@@ -6,7 +6,7 @@ type HashtagItemProps = {
 export default function HashtagItem({ onSelectCompany, company }: HashtagItemProps) {
     return (
         <li key={company}>
-            <button onClick={onSelectCompany}>#{company}</button>
+            <button onClick={() => onSelectCompany(company)}>#{company}</button>
         </li>
     )
 }

@@ -1,14 +1,26 @@
+import { useMemo } from "react";
+import { useFeedbackItemsStore } from "../../stores/feedbackItemsStore";
 import HashtagItem from "./HashtagItem";
-import {useFeedbackItemsContext} from "../../lib/hooks.ts";
 
 export default function HashtagList() {
-    const { handleSelectCompany, companyList } = useFeedbackItemsContext();
+    const feedbackItems = useFeedbackItemsStore((state) => state.feedbackItems);
+    const selectCompany = useFeedbackItemsStore((state) => state.selectCompany);
+
+    const companyList = useMemo(() => {
+        return feedbackItems
+            .map((item) => item.company)
+            .filter((company, index, array) => array.indexOf(company) === index);
+    }, [feedbackItems]);
 
     return (
-      <ul className="hashtags">
-          {companyList.map(company => (
-              <HashtagItem onSelectCompany={() => handleSelectCompany(company)} company={company} />
-          ))}
-      </ul>
+        <ul className="hashtags">
+            {companyList.map((company) => (
+                <HashtagItem
+                    key={company}
+                    company={company}
+                    onSelectCompany={selectCompany}
+                />
+            ))}
+        </ul>
     );
 }
