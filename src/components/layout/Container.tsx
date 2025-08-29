@@ -1,4 +1,4 @@
-import FeedbackList from "./FeedbackList.tsx";
+import FeedbackList from "../feedback/FeedbackList.tsx";
 import Header from "./Header.tsx";
 
 export default function Container() {
